@@ -5,7 +5,7 @@ import { fill } from "@/lib/i18n";
 import { Media } from "./Media";
 
 interface Props {
-  images: { src: string | null; label: string }[];
+  images: { src: string | null; label: string; focus?: string }[];
   name: string;
   t: { imageOf: string; showImage: string };
 }
@@ -25,7 +25,7 @@ export function ProductGallery({ images, name, t }: Props) {
               aria-label={fill(t.showImage, { n: i + 1 })}
               onClick={() => setActive(i)}
             >
-              <Media src={img.src} alt="" label={String(i + 1)} sizes="88px" />
+              <Media src={img.src} alt="" label={String(i + 1)} sizes="88px" focus={img.focus} />
             </button>
           ))}
       </div>
@@ -33,6 +33,7 @@ export function ProductGallery({ images, name, t }: Props) {
         src={current.src}
         alt={fill(t.imageOf, { name, n: active + 1 })}
         label={current.label}
+        focus={current.focus}
         sizes="(max-width: 900px) 100vw, 640px"
         priority
         className="gallery__main"

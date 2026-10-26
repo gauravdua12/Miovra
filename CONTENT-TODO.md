@@ -8,12 +8,12 @@ Any of `.jpg`, `.png`, `.webp` works; the site picks the file up by name with no
 
 | File name | Where it shows | Status |
 |---|---|---|
-| `banner-home` | Homepage banner; also the Teal Paisley cushion sample | Sent in chat, file needed |
-| `collection-home-decor` | Home Decor tile, banner and menu; Jaal runner sample | Sent in chat, file needed |
-| `collection-folk-art` | Folk Art & Paintings tile and banner; peacock painting sample | Sent in chat, file needed |
-| `collection-bags` | Bags & Accessories tile and banner; tote sample | Sent in chat, file needed |
-| `collection-diy-kits` | DIY Kits tile and banner; tote kit sample | Sent in chat, file needed |
-| `gifts-custom` | Gifts & Custom Orders band | Sent in chat, file needed |
+| `banner-home` | Homepage banner; also the Teal Paisley cushion sample | Done |
+| `collection-home-decor` | Home Decor tile, banner and menu; Jaal runner sample | Done |
+| `collection-folk-art` | Folk Art & Paintings tile and banner; peacock painting sample | Done |
+| `collection-bags` | Bags & Accessories tile and banner; tote sample | Done |
+| `collection-diy-kits` | DIY Kits tile and banner; tote kit sample | Done |
+| `gifts-custom` | Gifts & Custom Orders band | Done |
 | `workshops` | Homepage workshops band, Workshops page, DIY craft story | To source |
 | `arti-portrait` | Our Story teaser and page | Optional |
 | `craft-block-printing`, `craft-folk-painting` | "The Craft" band on collection pages | To source |

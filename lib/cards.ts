@@ -1,6 +1,7 @@
 import { craftLine, crafts, type Product } from "./catalog";
 import type { Dictionary } from "./dictionaries";
 import type { Currency, Locale } from "./i18n";
+import { focus } from "./focal";
 import { resolveImage } from "./images";
 
 /** Everything a product card needs, serialisable for client components. */
@@ -13,6 +14,7 @@ export interface CardData {
   price: Record<Currency, number>;
   image: string | null;
   hoverImage: string | null;
+  imageFocus?: string;
   imageLabel: string;
   category: string;
   craft: string;
@@ -32,6 +34,7 @@ export function toCard(p: Product, lang: Locale): CardData {
     price: p.price,
     image: resolveImage(p.images[0]),
     hoverImage: resolveImage(p.images[1]),
+    imageFocus: focus(p.images[0], "portrait"),
     imageLabel: p.name.en,
     category: p.category,
     craft: p.craft,

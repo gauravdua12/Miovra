@@ -10,6 +10,7 @@ import { cardText, toCard } from "@/lib/cards";
 import { craftLine, crafts, getCollection, getProduct, madeSteps, products, productsIn } from "@/lib/catalog";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales } from "@/lib/i18n";
+import { focus } from "@/lib/focal";
 import { resolveImage } from "@/lib/images";
 import { site } from "@/lib/site";
 
@@ -37,7 +38,7 @@ export default async function ProductPage({ params }: { params: Params }) {
   const pt = t.product;
   const name = product.name[lang];
   const related = productsIn(collection.slug).filter((p) => p.slug !== slug).slice(0, 4);
-  const images = product.images.map((base) => ({ src: resolveImage(base), label: product.name.en }));
+  const images = product.images.map((base) => ({ src: resolveImage(base), label: product.name.en, focus: focus(base, "portrait") }));
   const base = `/${lang}`;
 
   return (

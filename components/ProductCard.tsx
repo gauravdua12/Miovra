@@ -24,7 +24,7 @@ export function ProductCard({ card, t, priority }: { card: CardData; t: CardText
   return (
     <article className="card">
       <div style={{ position: "relative" }}>
-        <Media src={card.image} alt={card.name} label={card.imageLabel} sizes={sizes} priority={priority} />
+        <Media src={card.image} alt={card.name} label={card.imageLabel} sizes={sizes} priority={priority} focus={card.imageFocus} />
         {card.madeToOrder && <span className="card__badge">{t.madeToOrder}</span>}
         <button
           type="button"

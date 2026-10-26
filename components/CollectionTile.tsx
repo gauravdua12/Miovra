@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Collection } from "@/lib/catalog";
 import type { Locale } from "@/lib/i18n";
+import { focus } from "@/lib/focal";
 import { resolveImage } from "@/lib/images";
 import { Arrow } from "./Icon";
 import { Media } from "./Media";
@@ -13,6 +14,7 @@ export function CollectionTile({ collection, lang }: { collection: Collection; l
         src={resolveImage(collection.image)}
         alt={collection.imageAlt[lang]}
         label={collection.imageLabel}
+        focus={focus(collection.image, "portrait")}
         sizes="(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 320px"
       />
       <div className="tile__text">

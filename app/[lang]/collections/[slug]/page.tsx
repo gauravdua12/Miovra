@@ -7,6 +7,7 @@ import { cardText, toCard } from "@/lib/cards";
 import { collections, getCollection, productsIn } from "@/lib/catalog";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales } from "@/lib/i18n";
+import { focus } from "@/lib/focal";
 import { resolveImage } from "@/lib/images";
 
 type Params = Promise<{ lang: string; slug: string }>;
@@ -41,7 +42,7 @@ export default async function CollectionPage({
     <>
       {/* C1 · Banner */}
       <section className="page-banner">
-        <Media src={resolveImage(collection.image)} alt={collection.imageAlt[lang]} label={collection.imageLabel} sizes="100vw" priority />
+        <Media src={resolveImage(collection.image)} alt={collection.imageAlt[lang]} label={collection.imageLabel} sizes="100vw" priority focus={focus(collection.image, "wide")} />
         <div className="page-banner__scrim" />
         <div className="container page-banner__text">
           <p className="eyebrow">{ct.eyebrow}</p>

@@ -9,10 +9,12 @@ interface MediaProps {
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** CSS object-position, so a crop keeps the subject in frame. */
+  focus?: string;
 }
 
 /** A photo that fills its box, or a labelled placeholder while the file is missing. */
-export function Media({ src, alt, label, sizes, priority, className = "" }: MediaProps) {
+export function Media({ src, alt, label, sizes, priority, className = "", focus }: MediaProps) {
   if (!src) {
     return (
       <div className={`media media--placeholder ${className}`} role="img" aria-label={alt}>
@@ -22,7 +24,7 @@ export function Media({ src, alt, label, sizes, priority, className = "" }: Medi
   }
   return (
     <div className={`media ${className}`}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} style={focus ? { objectPosition: focus } : undefined} />
     </div>
   );
 }
