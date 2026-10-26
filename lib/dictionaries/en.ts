@@ -50,7 +50,6 @@ export const en = {
       line: "Follow a piece from carved block to finished cloth, filmed in the artisans' workshops.",
       play: "Play video",
       consent: "This loads content from Instagram.",
-      soon: "Video coming soon",
       follow: "Follow Miovra on Instagram",
       frameTitle: "Miovra on Instagram, video {n}",
     },
@@ -82,12 +81,11 @@ export const en = {
     connect: {
       eyebrow: "Connect With Us",
       heading: "We'd love to hear from you",
-      body: "Questions about a piece, a gift or a workshop? Write to us, or find us on Instagram, Facebook and WhatsApp.",
+      body: "Questions about a piece, a gift or a workshop? Write to us and we'll reply personally.",
       email: "Email",
       instagram: "Instagram",
       facebook: "Facebook",
       whatsapp: "WhatsApp",
-      soon: "Coming soon",
       signup: "Join the Miovra circle for new pieces and workshop dates.",
       placeholder: "Your email address",
       subscribe: "Subscribe",
@@ -155,9 +153,6 @@ export const en = {
     dimensions: "Size",
     care: "Care",
     story: "The Story",
-    maker: "Meet the Maker",
-    makerText:
-      "Every Miovra piece comes from a small workshop or an independent artist we work with directly. We'll introduce the people behind this piece here soon.",
     shipping: "Shipping & Returns",
     shippingText:
       "We ship from Sweden to Sweden and every EU country, and confirm the delivery cost and time with your enquiry. You can return unused pieces within 14 days of delivery.",

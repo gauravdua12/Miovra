@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/ProductCard";
 import { cardText, toCard } from "@/lib/cards";
 import { searchProducts } from "@/lib/catalog";
+import { onlyListed } from "@/lib/listing";
 import { getDictionary } from "@/lib/dictionaries";
 import { fill, isLocale } from "@/lib/i18n";
 
@@ -19,7 +20,7 @@ export default async function SearchPage({ params, searchParams }: { params: Par
   if (!isLocale(lang)) notFound();
   const q = ((await searchParams).q ?? "").trim().slice(0, 80);
   const t = getDictionary(lang);
-  const results = q ? searchProducts(q, lang) : [];
+  const results = q ? onlyListed(searchProducts(q, lang)) : [];
 
   return (
     <section className="section">

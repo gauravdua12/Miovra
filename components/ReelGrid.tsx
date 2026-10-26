@@ -8,7 +8,6 @@ import { Icon } from "./Icon";
 interface ReelText {
   play: string;
   consent: string;
-  soon: string;
   frameTitle: string;
 }
 
@@ -19,8 +18,9 @@ interface ReelText {
 export function Reel({ url, index, t }: { url?: string; index: number; t: ReelText }) {
   const [playing, setPlaying] = useState(false);
   const embed = url ? instagramEmbedUrl(url) : null;
+  if (!embed) return null;
 
-  if (playing && embed) {
+  if (playing) {
     return (
       <div className="reel">
         <iframe src={embed} title={fill(t.frameTitle, { n: index + 1 })} loading="lazy" allow="encrypted-media; fullscreen" />
@@ -29,9 +29,9 @@ export function Reel({ url, index, t }: { url?: string; index: number; t: ReelTe
   }
   return (
     <div className="reel">
-      <button type="button" className="reel__poster" disabled={!embed} onClick={() => setPlaying(true)}>
+      <button type="button" className="reel__poster" onClick={() => setPlaying(true)}>
         <span className="reel__play"><Icon name="play" /></span>
-        <span>{embed ? `${t.play}. ${t.consent}` : t.soon}</span>
+        <span>{`${t.play}. ${t.consent}`}</span>
       </button>
     </div>
   );
@@ -40,8 +40,8 @@ export function Reel({ url, index, t }: { url?: string; index: number; t: ReelTe
 export function ReelGrid({ urls, t }: { urls: string[]; t: ReelText }) {
   return (
     <div className="reels">
-      {[0, 1, 2].map((i) => (
-        <Reel key={i} url={urls[i]} index={i} t={t} />
+      {urls.slice(0, 3).map((url, i) => (
+        <Reel key={url} url={url} index={i} t={t} />
       ))}
     </div>
   );

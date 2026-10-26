@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SavedView } from "@/components/SavedView";
 import { cardText, toCard } from "@/lib/cards";
-import { products } from "@/lib/catalog";
+import { listedProducts } from "@/lib/listing";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale } from "@/lib/i18n";
 
@@ -26,7 +26,7 @@ export default async function SavedPage({ params }: { params: Params }) {
           <h1 className="display">{t.wishlist.title}</h1>
           <p>{t.wishlist.intro}</p>
         </div>
-        <SavedView cards={products.map((p) => toCard(p, lang))} t={t.wishlist} cardText={cardText(t)} />
+        <SavedView cards={listedProducts().map((p) => toCard(p, lang))} t={t.wishlist} cardText={cardText(t)} />
       </div>
     </section>
   );

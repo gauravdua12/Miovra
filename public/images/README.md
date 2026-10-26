@@ -10,5 +10,5 @@ Drop original photo files here. Expected names:
 | `collection-bags.jpg` | Bags & Accessories tile (tote and pouch) | added |
 | `collection-diy-kits.jpg` | DIY Kits tile (painted tote, paints, brush) | added |
 | `gifts-custom.jpg` | Gifts & Custom Orders band (gift box, MIOVRA ribbon) | added |
-| `workshops.jpg` | Create With Us Workshops | to source |
+| `workshops.jpg` | Workshops; block-printing craft story | added |
 | `arti-portrait.jpg` | Our Story (optional) | to source |

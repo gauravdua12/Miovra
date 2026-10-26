@@ -38,6 +38,7 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
   const [sheet, setSheet] = useState(false);
 
   const priceCeiling = Math.max(...cards.map((c) => c.price[currency]));
+  const priceFloor = Math.min(...cards.map((c) => c.price[currency]));
   const limit = maxPrice === null ? priceCeiling : Math.min(maxPrice, priceCeiling);
 
   const options = useMemo(() => {
@@ -97,6 +98,11 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
     else setSidebar((s) => !s);
   };
 
+  // Filters and sort only appear when there is something to choose between.
+  const hasFilters =
+    [options.cats, options.crafts, options.regions, options.avail].some((o) => o.length > 1) || priceFloor < priceCeiling;
+  const canSort = cards.length > 1;
+  const showSidebar = hasFilters && sidebar;
   const count = results.length === 1 ? t.piece : fill(t.pieces, { n: results.length });
   const visible = results.slice(0, shown);
 
@@ -138,12 +144,17 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
       )}
 
       <div className="toolbar">
-        <button type="button" onClick={openFilters} aria-expanded={sidebar}>
-          <Icon name="filter" />
-          <span className="only-desktop">{sidebar ? t.hideFilters : t.showFilters}</span>
-          <span className="only-mobile">{t.filterSort}</span>
-        </button>
+        {hasFilters ? (
+          <button type="button" onClick={openFilters} aria-expanded={sidebar}>
+            <Icon name="filter" />
+            <span className="only-desktop">{sidebar ? t.hideFilters : t.showFilters}</span>
+            <span className="only-mobile">{t.filterSort}</span>
+          </button>
+        ) : (
+          <span />
+        )}
         <span className="tabular" aria-live="polite">{count}</span>
+        {canSort ? (
         <label>
           <span className="sr-only">{t.sort}</span>
           <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
@@ -153,10 +164,14 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
             <option value="priceDesc">{t.sortPriceDesc}</option>
           </select>
         </label>
+        ) : (
+          <span />
+        )}
       </div>
 
-      <div className={`plp${sidebar ? "" : " no-filters"}${sheet ? " sheet-open" : ""}`}>
+      <div className={`plp${showSidebar ? "" : " no-filters"}${sheet ? " sheet-open" : ""}`}>
         {sheet && <div className="drawer-backdrop" onClick={() => setSheet(false)} />}
+        {hasFilters && (
         <aside className="filters" aria-label={t.filterSort}>
           <div className="filters__close">
             <span className="eyebrow">{t.filterSort}</span>
@@ -167,6 +182,7 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
           {group(t.category, options.cats, cats, setCats)}
           {group(t.craft, options.crafts, crafts, setCrafts)}
           {group(t.region, options.regions, regions, setRegions)}
+          {priceFloor < priceCeiling && (
           <details className="filter-group" open>
             <summary>{t.price}</summary>
             <div className="price-range">
@@ -174,7 +190,7 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
               <input
                 id="price-max"
                 type="range"
-                min={Math.min(...cards.map((c) => c.price[currency]))}
+                min={priceFloor}
                 max={priceCeiling}
                 step={currency === "SEK" ? 10 : 1}
                 value={limit}
@@ -182,12 +198,14 @@ export function CollectionBrowser({ cards, categories, initialCategory, t, cardT
               />
             </div>
           </details>
+          )}
           {group(t.availability, options.avail, avail, setAvail)}
           <button type="button" className="link-caps filters__clear" onClick={clearAll}>{t.clear}</button>
           <button type="button" className="btn btn--block filters__apply" onClick={() => setSheet(false)}>
             {fill(t.showResults, { n: results.length })}
           </button>
         </aside>
+        )}
 
         <div>
           {visible.length ? (

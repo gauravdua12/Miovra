@@ -20,12 +20,13 @@ export default async function OurStoryPage({ params }: { params: Params }) {
   if (!isLocale(lang)) notFound();
   const t = getDictionary(lang);
   const [opening, ...rest] = t.story.paragraphs;
+  const portrait = resolveImage("arti-portrait");
 
   return (
     <>
       <section className="section dark">
-        <div className="container story-teaser">
-          <Media src={resolveImage("arti-portrait")} alt="Arti, founder of Miovra" label="Portrait of Arti" sizes="(max-width: 900px) 90vw, 480px" priority />
+        <div className={`container story-teaser${portrait ? "" : " story-teaser--solo"}`}>
+          {portrait && <Media src={portrait} alt="Arti, founder of Miovra" label="Portrait of Arti" sizes="(max-width: 900px) 90vw, 480px" priority />}
           <div className="story-teaser__text">
             <p className="eyebrow">{t.story.title}</p>
             <h1 className="quote">{opening}</h1>

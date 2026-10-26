@@ -14,10 +14,10 @@ export function ProductGallery({ images, name, t }: Props) {
   const [active, setActive] = useState(0);
   const current = images[active];
   return (
-    <div className="gallery">
+    <div className={`gallery${images.length > 1 ? "" : " gallery--single"}`}>
+      {images.length > 1 && (
       <div className="gallery__thumbs">
-        {images.length > 1 &&
-          images.map((img, i) => (
+        {images.map((img, i) => (
             <button
               key={i}
               type="button"
@@ -27,8 +27,9 @@ export function ProductGallery({ images, name, t }: Props) {
             >
               <Media src={img.src} alt="" label={String(i + 1)} sizes="88px" focus={img.focus} />
             </button>
-          ))}
+        ))}
       </div>
+      )}
       <Media
         src={current.src}
         alt={fill(t.imageOf, { name, n: active + 1 })}

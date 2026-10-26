@@ -62,8 +62,8 @@ const blockPrintStory: CraftStory = {
     en: "Each pattern starts as a design carved into a wooden block. The printer dips the block in natural dye and presses it onto the cloth by hand, one impression at a time, lining up every repeat by eye. Small shifts in colour and line are the mark of the hand.",
     sv: "Varje mönster börjar som en design som snidas i ett träblock. Trycksaren doppar blocket i naturlig färg och pressar det mot tyget för hand, ett avtryck i taget, och passar in varje upprepning med blotta ögat. Små skiftningar i färg och linje är handens signatur.",
   },
-  image: "craft-block-printing",
-  imageLabel: "Printer pressing a carved block onto cloth",
+  image: "workshops",
+  imageLabel: "Block-printing table with carved blocks and dyes",
 };
 
 export const collections: Collection[] = [
@@ -153,8 +153,8 @@ export const collections: Collection[] = [
         en: "Our kits bring the patience of folk painting to your own table. The design is drawn on for you, so you can focus on colour and brushwork. Work slowly, layer by layer, the way the artists do.",
         sv: "Våra kit tar med folkkonstens tålamod till ditt eget bord. Motivet är redan förtecknat, så att du kan fokusera på färg och penseldrag. Arbeta långsamt, lager för lager, så som konstnärerna gör.",
       },
-      image: "workshops",
-      imageLabel: "Hands painting at a workshop table",
+      image: "craft-diy-painting",
+      imageLabel: "Painting a kit at home",
     },
   },
 ];

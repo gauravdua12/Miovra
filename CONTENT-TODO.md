@@ -1,6 +1,6 @@
 # Content to supply or confirm before launch
 
-The site runs today with placeholders for everything below. Each item names the file to change.
+Nothing on the site shows a placeholder: anything below that's missing is simply hidden until it's added. Each item names the file to change.
 
 ## Photos (drop into `public/images/`)
 
@@ -14,19 +14,19 @@ Any of `.jpg`, `.png`, `.webp` works; the site picks the file up by name with no
 | `collection-bags` | Bags & Accessories tile and banner; tote sample | Done |
 | `collection-diy-kits` | DIY Kits tile and banner; tote kit sample | Done |
 | `gifts-custom` | Gifts & Custom Orders band | Done |
-| `workshops` | Homepage workshops band, Workshops page, DIY craft story | To source |
-| `arti-portrait` | Our Story teaser and page | Optional |
-| `craft-block-printing`, `craft-folk-painting` | "The Craft" band on collection pages | To source |
-| `products/<product-slug>[-2]` | Product photos (see `lib/catalog.ts`) | With real catalogue |
+| `workshops` | Workshops band and page; block-printing craft story; "How It Was Made" on block-print pieces | Done |
+| `arti-portrait` | Our Story teaser and page (layout adapts without it) | Optional |
+| `craft-folk-painting`, `craft-diy-painting` | Photo beside "The Craft" text on Folk Art and DIY pages (text-only until added) | Optional |
+| `products/<product-slug>[-2]` | Product photos. **A piece only appears on the site once its main photo exists.** | With real catalogue |
 
 ## Contact details (`lib/site.ts`)
 
-- Instagram URL, Facebook URL, WhatsApp number. Until set, those links read "Coming soon" and the WhatsApp buttons stay hidden.
-- Three Instagram reel URLs for "See How It Is Made".
+- Instagram URL, Facebook URL, WhatsApp number. Each link and WhatsApp button appears once its value is set.
+- Up to three Instagram reel URLs. The "See How It Is Made" section appears on the homepage once at least one is set.
 
 ## Catalogue (`lib/catalog.ts`)
 
-All 15 products are **sample data**: names, codes, sizes, EUR and SEK prices, regions and descriptions. Replace with the real pieces.
+All 15 products are **sample data**: names, codes, sizes, EUR and SEK prices, regions and descriptions. Only the 5 that have photos are shown (Jaal runner, Teal Paisley cushion, peacock painting, Jaal tote, tote paint kit). Replace with the real pieces.
 
 ## Policies to confirm (`lib/dictionaries/en.ts` and `sv.ts`, `legal` section)
 

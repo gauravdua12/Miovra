@@ -21,6 +21,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const h = t.home;
   const base = `/${lang}`;
   const giftsWa = whatsappLink(h.gifts.whatsappText);
+  const portrait = resolveImage("arti-portrait");
 
   return (
     <>
@@ -65,7 +66,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* H4 · See How It Is Made */}
+      {/* H4 · See How It Is Made (shown once Instagram reels are set in lib/site.ts) */}
+      {site.reels.length > 0 && (
       <section className="section rule-top" id="made">
         <div className="container">
           <div className="section-head">
@@ -81,6 +83,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           )}
         </div>
       </section>
+      )}
 
       {/* H5 · Collections */}
       <section className="section rule-top" id="collections">
@@ -139,8 +142,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* H8 · Our Story teaser */}
       <section className="section dark">
-        <div className="container story-teaser">
-          <Media src={resolveImage("arti-portrait")} alt="Arti, founder of Miovra" label="Portrait of Arti" sizes="(max-width: 900px) 90vw, 480px" />
+        <div className={`container story-teaser${portrait ? "" : " story-teaser--solo"}`}>
+          {portrait && <Media src={portrait} alt="Arti, founder of Miovra" label="Portrait of Arti" sizes="(max-width: 900px) 90vw, 480px" />}
           <div className="story-teaser__text">
             <p className="eyebrow">{h.story.eyebrow}</p>
             <p className="quote">{h.story.quote}</p>

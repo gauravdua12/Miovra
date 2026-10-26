@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import { CollectionBrowser } from "@/components/CollectionBrowser";
 import { Media } from "@/components/Media";
 import { cardText, toCard } from "@/lib/cards";
-import { collections, getCollection, productsIn } from "@/lib/catalog";
+import { collections, getCollection } from "@/lib/catalog";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales } from "@/lib/i18n";
 import { focus } from "@/lib/focal";
 import { resolveImage } from "@/lib/images";
+import { listedProducts } from "@/lib/listing";
+import { site } from "@/lib/site";
 
 type Params = Promise<{ lang: string; slug: string }>;
 
@@ -37,6 +39,7 @@ export default async function CollectionPage({
   const t = getDictionary(lang);
   const ct = t.collections;
   const story = collection.craftStory;
+  const storyImage = resolveImage(story.image);
 
   return (
     <>
@@ -59,7 +62,7 @@ export default async function CollectionPage({
         </ol>
         <p className="lede" style={{ margin: "24px 0 28px" }}>{collection.description[lang]}</p>
         <CollectionBrowser
-          cards={productsIn(collection.slug).map((p) => toCard(p, lang))}
+          cards={listedProducts(collection.slug).map((p) => toCard(p, lang))}
           categories={collection.categories.map((c) => ({ slug: c.slug, name: c.name[lang] }))}
           initialCategory={category}
           t={ct}
@@ -82,15 +85,24 @@ export default async function CollectionPage({
       {/* C5 · The craft */}
       <section className="section rule-top">
         <div className="container">
-          <div className="band band--plain">
-            <Media src={resolveImage(story.image)} alt="" label={story.imageLabel} sizes="(max-width: 900px) 100vw, 640px" />
-            <div className="band__text">
+          {storyImage ? (
+            <div className="band band--plain">
+              <Media src={storyImage} alt="" label={story.imageLabel} sizes="(max-width: 900px) 100vw, 640px" />
+              <div className="band__text">
+                <p className="eyebrow">{ct.craftEyebrow}</p>
+                <h2 className="h2">{story.title[lang]}</h2>
+                <p>{story.body[lang]}</p>
+                {site.reels.length > 0 && <Link href={`/${lang}#made`} className="link-caps">{ct.craftLink}</Link>}
+              </div>
+            </div>
+          ) : (
+            <div className="section-head" style={{ marginBottom: 0 }}>
               <p className="eyebrow">{ct.craftEyebrow}</p>
               <h2 className="h2">{story.title[lang]}</h2>
               <p>{story.body[lang]}</p>
-              <Link href={`/${lang}#made`} className="link-caps">{ct.craftLink}</Link>
+              {site.reels.length > 0 && <Link href={`/${lang}#made`} className="link-caps">{ct.craftLink}</Link>}
             </div>
-          </div>
+          )}
         </div>
       </section>
     </>

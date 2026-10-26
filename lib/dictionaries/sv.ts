@@ -52,7 +52,6 @@ export const sv: Dictionary = {
       line: "Följ ett föremål från snidat block till färdigt tyg, filmat i hantverkarnas verkstäder.",
       play: "Spela upp video",
       consent: "Detta laddar innehåll från Instagram.",
-      soon: "Video kommer snart",
       follow: "Följ Miovra på Instagram",
       frameTitle: "Miovra på Instagram, video {n}",
     },
@@ -84,12 +83,11 @@ export const sv: Dictionary = {
     connect: {
       eyebrow: "Kontakta oss",
       heading: "Vi hör gärna av dig",
-      body: "Frågor om ett föremål, en gåva eller en workshop? Skriv till oss, eller hitta oss på Instagram, Facebook och WhatsApp.",
+      body: "Frågor om ett föremål, en gåva eller en workshop? Skriv till oss så svarar vi personligen.",
       email: "E-post",
       instagram: "Instagram",
       facebook: "Facebook",
       whatsapp: "WhatsApp",
-      soon: "Kommer snart",
       signup: "Gå med i Miovra-kretsen för nya föremål och workshopdatum.",
       placeholder: "Din e-postadress",
       subscribe: "Prenumerera",
@@ -157,9 +155,6 @@ export const sv: Dictionary = {
     dimensions: "Storlek",
     care: "Skötsel",
     story: "Berättelsen",
-    maker: "Möt hantverkaren",
-    makerText:
-      "Varje föremål från Miovra kommer från en liten verkstad eller en självständig konstnär som vi arbetar direkt med. Snart presenterar vi människorna bakom detta föremål här.",
     shipping: "Frakt & returer",
     shippingText:
       "Vi skickar från Sverige till Sverige och alla EU-länder, och bekräftar fraktkostnad och leveranstid i samband med din förfrågan. Oanvända föremål kan returneras inom 14 dagar efter leverans.",

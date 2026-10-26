@@ -5,40 +5,47 @@ import { BuyBox } from "@/components/BuyBox";
 import { Icon, type IconName } from "@/components/Icon";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/ProductGallery";
+import { Media } from "@/components/Media";
 import { Reel } from "@/components/ReelGrid";
 import { cardText, toCard } from "@/lib/cards";
-import { craftLine, crafts, getCollection, getProduct, madeSteps, products, productsIn } from "@/lib/catalog";
+import { craftLine, crafts, getCollection, madeSteps } from "@/lib/catalog";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales } from "@/lib/i18n";
 import { focus } from "@/lib/focal";
 import { resolveImage } from "@/lib/images";
+import { getListedProduct, listedProducts } from "@/lib/listing";
 import { site } from "@/lib/site";
 
 type Params = Promise<{ lang: string; slug: string }>;
 const assureIcons: IconName[] = ["hand", "truck", "return"];
 
 export function generateStaticParams() {
-  return locales.flatMap((lang) => products.map((p) => ({ lang, slug: p.slug })));
+  return locales.flatMap((lang) => listedProducts().map((p) => ({ lang, slug: p.slug })));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { lang, slug } = await params;
-  const p = getProduct(slug);
+  const p = getListedProduct(slug);
   if (!p || !isLocale(lang)) return {};
   return { title: p.name[lang], description: p.short[lang] };
 }
 
 export default async function ProductPage({ params }: { params: Params }) {
   const { lang, slug } = await params;
-  const product = getProduct(slug);
+  const product = getListedProduct(slug);
   if (!isLocale(lang) || !product) notFound();
   const collection = getCollection(product.collection)!;
   const category = collection.categories.find((c) => c.slug === product.category);
   const t = getDictionary(lang);
   const pt = t.product;
   const name = product.name[lang];
-  const related = productsIn(collection.slug).filter((p) => p.slug !== slug).slice(0, 4);
-  const images = product.images.map((base) => ({ src: resolveImage(base), label: product.name.en, focus: focus(base, "portrait") }));
+  const related = listedProducts(collection.slug).filter((p) => p.slug !== slug).slice(0, 4);
+  const images = product.images
+    .map((base) => ({ src: resolveImage(base), label: product.name.en, focus: focus(base, "portrait") }))
+    .filter((img) => img.src);
+  // "How It Was Made" shows a reel when one is set, otherwise the collection's craft photo, otherwise just the steps.
+  const reel = site.reels[0];
+  const craftPhoto = resolveImage(collection.craftStory.image);
   const base = `/${lang}`;
 
   return (
@@ -92,10 +99,6 @@ export default async function ProductPage({ params }: { params: Params }) {
                 <div className="acc__body"><p>{product.story[lang]}</p></div>
               </details>
               <details className="acc">
-                <summary>{pt.maker}</summary>
-                <div className="acc__body"><p>{pt.makerText}</p></div>
-              </details>
-              <details className="acc">
                 <summary>{pt.shipping}</summary>
                 <div className="acc__body">
                   <p>{pt.shippingText}</p>
@@ -109,8 +112,12 @@ export default async function ProductPage({ params }: { params: Params }) {
 
       {/* P2 · How it was made */}
       <section className="section rule-top" style={{ marginTop: 96 }}>
-        <div className="container made">
-          <Reel url={site.reels[0]} index={0} t={t.home.reels} />
+        <div className={`container made${reel || craftPhoto ? "" : " made--solo"}`}>
+          {reel ? (
+            <Reel url={reel} index={0} t={t.home.reels} />
+          ) : (
+            craftPhoto && <Media src={craftPhoto} alt="" label="" sizes="(max-width: 900px) 100vw, 420px" className="made__media" />
+          )}
           <div className="stack" style={{ gap: 24 }}>
             <p className="eyebrow">{pt.made.eyebrow}</p>
             <h2 className="h2">{pt.made.heading}</h2>
