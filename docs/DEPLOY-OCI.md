@@ -78,12 +78,12 @@ On a pure free account, Oracle may **reclaim servers that look idle** for a week
 
 > **"Out of capacity" error?** Free ARM servers are popular. Try again in a few hours, pick a different **Availability domain** in the Placement section, or (on Pay As You Go) simply retry later the same day. It usually works within a day.
 
-### Make the IP address permanent
+### Optional: make the IP address permanent
 
-By default the IP can change if the server is ever stopped. A reserved IP keeps it fixed, which matters because your domain will point at it.
+The public IP survives reboots and stop/start; it's only lost if the server is deleted. A reserved IP stays yours even then, which helps if you ever rebuild the server. You can skip this and use the current IP.
 
-1. On the instance page → **Attached VNICs** (under Resources, or the **Networking** tab) → click the VNIC name.
-2. **IPv4 Addresses** → on the row with the public IP, click **⋮ → Edit**.
+1. On the instance page → **Networking** tab → scroll to **Attached VNICs** (or **VNICs**) → click the VNIC name.
+2. **IP administration** tab (or **IPv4 Addresses** under Resources) → on the row with the public IP, click **⋮ → Edit**.
 3. Choose **No public IP** → **Update**. (This releases the temporary IP.)
 4. Click **⋮ → Edit** again → choose **Reserved public IP** → **Create a new reserved IP**, named `miovra-ip` → **Update**.
 5. Note the new address. This is now **YOUR_IP** for the rest of the guide.
