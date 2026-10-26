@@ -184,11 +184,9 @@ sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapf
 
 ## Part F · Point miovra.eu at the server
 
-At the moment `miovra.eu` points at Shopify. Change it where the domain's DNS is managed:
-- **If you bought the domain through Shopify:** Shopify admin → **Settings → Domains** → click `miovra.eu` → **Domain settings → Edit DNS settings**.
-- **Otherwise:** sign in to your domain registrar (where you pay for miovra.eu) and open its **DNS** settings.
+Both domains point at the server; the site runs on **www.miovra.eu**, and `miovra.eu`, `miovra.in` and `www.miovra.in` all forward to it.
 
-Then:
+**miovra.eu** — DNS is managed at **Oderland** (its name servers are `dns*.oderland.com`): sign in to Oderland's control panel → the domain's **DNS** / zone editor. It currently has two A records for `@` (Oderland's `91.201.63.189` and Shopify's `23.227.38.65`) and a `www` CNAME to Shopify. Then:
 1. **Delete** the Shopify records (in Shopify you may first need to disconnect the domain from the store under **Settings → Domains**), typically an **A** record for `@` pointing to `23.227.38.65` and a **CNAME** for `www` pointing to `shops.myshopify.com`.
 2. **Add** these two records:
 
@@ -197,13 +195,17 @@ Then:
 | A | `@` (the bare domain) | YOUR_IP | 300 (or default) |
 | A | `www` | YOUR_IP | 300 (or default) |
 
-3. Save. Changes usually take effect within minutes but can take a few hours. To check from your Mac (not the server), run:
+3. Save.
+
+**miovra.in** — registered through Endurance India (BigRock / ResellerClub). In that account → **DNS Management** for `miovra.in`, remove the parked records (currently pointing to `127.0.0.1`) and add the same two records: **A** `@` → YOUR_IP and **A** `www` → YOUR_IP.
+
+Changes usually take effect within minutes but can take a few hours. To check from your Mac (not the server), run:
 
 ```bash
-dig +short www.miovra.eu
+dig +short www.miovra.eu www.miovra.in
 ```
 
-When it prints YOUR_IP, DNS is ready.
+When both lines print YOUR_IP, DNS is ready.
 
 > Changing the DNS takes the old Shopify page offline. It currently shows "Store unavailable" anyway. Cancel the Shopify plan separately if you no longer need it.
 
@@ -254,7 +256,7 @@ Look for `Ready` from the website and `certificate obtained successfully` from C
 
 **5. Open https://www.miovra.eu** in your browser. 🎉 Then:
 - Check the padlock icon appears.
-- Check `http://miovra.eu` forwards to `https://www.miovra.eu`.
+- Check `http://miovra.eu`, `miovra.in` and `www.miovra.in` all forward to `https://www.miovra.eu`.
 - Send a test enquiry from the Connect page and check it arrives in Miovra4u@gmail.com.
 
 > If Caddy logs a certificate error, DNS (Part F) isn't pointing at the server yet. Wait until `dig` shows YOUR_IP, then run `docker compose restart caddy`.

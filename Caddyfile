@@ -7,7 +7,8 @@ www.miovra.eu {
 	reverse_proxy web:3000
 }
 
-# The bare domain forwards to www so there is one address for search engines.
-miovra.eu {
+# Every other address forwards to www.miovra.eu, keeping the page path,
+# so there is one address for search engines. Each still gets its own HTTPS certificate.
+miovra.eu, miovra.in, www.miovra.in {
 	redir https://www.miovra.eu{uri} permanent
 }
