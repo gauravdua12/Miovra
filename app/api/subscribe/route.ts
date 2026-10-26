@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { notify } from "@/lib/mailer";
 import { clean, EMAIL_RE, saveSubmission } from "@/lib/submissions";
 
 export async function POST(request: Request) {
@@ -9,6 +10,8 @@ export async function POST(request: Request) {
   const email = clean(body.email, 200);
   if (!EMAIL_RE.test(email)) return NextResponse.json({ ok: false }, { status: 400 });
 
-  await saveSubmission("subscribers", { email, lang: body.lang === "sv" ? "sv" : "en" });
+  const lang = body.lang === "sv" ? "sv" : "en";
+  await saveSubmission("subscribers", { email, lang });
+  await notify("New Miovra circle sign-up", [["Email", email], ["Site language", lang]]);
   return NextResponse.json({ ok: true });
 }

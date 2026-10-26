@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { notify } from "@/lib/mailer";
 import { clean, EMAIL_RE, saveSubmission } from "@/lib/submissions";
 
 const TOPICS = ["piece", "gift", "workshop", "other"];
@@ -24,5 +25,18 @@ export async function POST(request: Request) {
   }
 
   await saveSubmission("enquiries", enquiry);
+  await notify(
+    `New enquiry from ${enquiry.name}`,
+    [
+      ["Name", enquiry.name],
+      ["Email", enquiry.email],
+      ["Phone", enquiry.phone],
+      ["Topic", enquiry.topic],
+      ["Pieces", enquiry.pieces.join("\n")],
+      ["Message", enquiry.message],
+      ["Site language", enquiry.lang],
+    ],
+    enquiry.email,
+  );
   return NextResponse.json({ ok: true });
 }

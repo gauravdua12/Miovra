@@ -22,7 +22,7 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 | Path | What |
 |---|---|
 | `app/[lang]/` | Pages: home, collections, products, our-story, workshops, connect, saved, search, shipping-returns, privacy |
-| `app/api/` | Enquiry and newsletter endpoints (saved to `data/*.jsonl` until email is set up) |
+| `app/api/` | Enquiry and newsletter endpoints: emailed when SMTP is configured, always saved to `data/*.jsonl` |
 | `app/globals.css` | Design system: the two brand tones, type scale, components |
 | `components/` | Header, footer, product cards, filters, gallery, forms |
 | `lib/dictionaries/` | All site copy, English and Swedish |
@@ -31,6 +31,9 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 | `public/images/` | Photos; missing ones show as labelled placeholders |
 | `docs/blueprint/` | The approved wireframe and copy blueprint |
 | `CONTENT-TODO.md` | Everything still to supply or confirm |
+| `docs/DEPLOY-OCI.md` | Step-by-step guide to putting the site live on Oracle Cloud |
+| `Dockerfile`, `docker-compose.yml`, `Caddyfile` | Production setup: the site plus Caddy for automatic HTTPS |
+| `.env.example` | Server settings (Gmail sending for enquiry emails) |
 
 ## Phases
 
@@ -38,4 +41,4 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 2. Design system and pages, running locally (done)
 3. Content: photos, catalogue, handles, Swedish review
 4. QA: mobile, accessibility, speed, GDPR
-5. Deploy to OCI after final approval (Docker, HTTPS, email notifications)
+5. Deploy to OCI after final approval: follow `docs/DEPLOY-OCI.md`

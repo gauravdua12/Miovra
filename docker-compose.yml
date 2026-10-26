@@ -1,0 +1,33 @@
+# Runs the site behind Caddy, which serves HTTPS with free, auto-renewing Let's Encrypt certificates.
+#   First time / after an update:  docker compose up -d --build
+#   Logs:                          docker compose logs -f
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - miovra_data:/app/data
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  miovra_data:
+  caddy_data:
+  caddy_config:

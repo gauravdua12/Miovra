@@ -1,0 +1,13 @@
+{
+	email {$ACME_EMAIL}
+}
+
+www.miovra.eu {
+	encode zstd gzip
+	reverse_proxy web:3000
+}
+
+# The bare domain forwards to www so there is one address for search engines.
+miovra.eu {
+	redir https://www.miovra.eu{uri} permanent
+}

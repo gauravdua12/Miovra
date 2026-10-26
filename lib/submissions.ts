@@ -6,8 +6,8 @@ const DATA_DIR = process.env.MIOVRA_DATA_DIR ?? path.join(process.cwd(), "data")
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Appends one submission as a JSON line to data/<file>.jsonl.
- * Email notifications to Miovra get wired in at deployment, once SMTP details exist.
+ * Appends one submission as a JSON line to data/<file>.jsonl, a permanent record
+ * alongside the email notification in lib/mailer.ts.
  */
 export async function saveSubmission(file: "enquiries" | "subscribers", record: Record<string, unknown>) {
   await mkdir(DATA_DIR, { recursive: true });
