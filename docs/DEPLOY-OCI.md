@@ -112,6 +112,8 @@ Type `yes` when asked about the fingerprint. Your prompt changes to something li
 
 ## Part E · Prepare the server
 
+> These are the **Ubuntu** steps (user `ubuntu`). If your server runs **Oracle Linux** (user `opc`), use the Oracle Linux steps right after this part instead.
+
 **1. Update the system** (takes a few minutes):
 
 ```bash
@@ -149,6 +151,34 @@ docker run --rm hello-world
 ```
 
 You should see "Hello from Docker!".
+
+### Part E for Oracle Linux (user `opc`)
+
+```bash
+sudo dnf -y update
+```
+
+```bash
+sudo firewall-cmd --permanent --add-service=http --add-service=https && sudo firewall-cmd --reload
+```
+
+```bash
+sudo dnf install -y dnf-plugins-core git && sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+```bash
+sudo dnf install -y --allowerasing docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+```bash
+sudo systemctl enable --now docker && sudo usermod -aG docker opc
+```
+
+Log out with `exit`, connect again, then check with `docker run --rm hello-world`. If the server has less than 2 GB of memory (`free -h`), add swap so the build doesn't run out of memory:
+
+```bash
+sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
 
 ---
 

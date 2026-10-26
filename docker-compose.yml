@@ -23,7 +23,8 @@ services:
     environment:
       ACME_EMAIL: ${ACME_EMAIL}
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # ":z" lets the container read this file on SELinux systems such as Oracle Linux.
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,z
       - caddy_data:/data
       - caddy_config:/config
 
