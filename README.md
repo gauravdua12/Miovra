@@ -4,22 +4,38 @@ Source for [www.miovra.eu](https://www.miovra.eu): curated block-printed textile
 
 ## Status
 
-**Phase 1: blueprint awaiting approval.** No front-end or back-end code has been written yet.
+**Phase 2: site built and running locally.** Blueprint v1 approved with palette B (Pearl & Bronze).
 
-- `docs/blueprint/index.html` is the wireframe and copy blueprint for the Homepage, Collection page and Product page, with four 2-tone palette options. Open it in a browser; the palette buttons at the top re-colour the whole document.
-- `docs/blueprint/assets/` holds the logo, extracted from the brand PDF with a transparent background.
-- `brand/` holds the original logo PDF and the website profile.
-- `public/images/` is where the site photography goes (see its README).
+Decisions: catalogue with enquiry (no checkout yet), English and Swedish, prices in EUR and SEK, shipping to Sweden and the EU.
 
-## Planned stack (pending approval)
+## Run it locally
 
-Next.js front end · Medusa commerce and admin · PostgreSQL · Stripe payments · Docker Compose on Oracle Cloud (OCI) with Caddy for HTTPS.
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser language.
+
+## Where things live
+
+| Path | What |
+|---|---|
+| `app/[lang]/` | Pages: home, collections, products, our-story, workshops, connect, saved, search, shipping-returns, privacy |
+| `app/api/` | Enquiry and newsletter endpoints (saved to `data/*.jsonl` until email is set up) |
+| `app/globals.css` | Design system: the two brand tones, type scale, components |
+| `components/` | Header, footer, product cards, filters, gallery, forms |
+| `lib/dictionaries/` | All site copy, English and Swedish |
+| `lib/catalog.ts` | Collections and pieces (sample data for now) |
+| `lib/site.ts` | Email, social links, WhatsApp number, Instagram reels |
+| `public/images/` | Photos; missing ones show as labelled placeholders |
+| `docs/blueprint/` | The approved wireframe and copy blueprint |
+| `CONTENT-TODO.md` | Everything still to supply or confirm |
 
 ## Phases
 
-1. Blueprint approval
-2. Design system and pages, running locally
-3. Shop, admin and payments (test mode)
-4. Content load
-5. QA: mobile, accessibility, speed, GDPR
-6. Deploy to OCI after final approval
+1. Blueprint approval (done)
+2. Design system and pages, running locally (done)
+3. Content: photos, catalogue, handles, Swedish review
+4. QA: mobile, accessibility, speed, GDPR
+5. Deploy to OCI after final approval (Docker, HTTPS, email notifications)

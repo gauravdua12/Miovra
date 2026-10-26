@@ -3,3 +3,7 @@ node_modules/
 .next/
 .env*
 !.env.example
+data/*.jsonl
+*.tsbuildinfo
+next-env.d.ts
+.claude/
