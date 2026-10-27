@@ -6,10 +6,13 @@ export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   if (isLocale(pathname.split("/")[1])) return NextResponse.next();
 
-  const url = request.nextUrl.clone();
-  url.pathname = `/${preferredLocale(request)}${pathname === "/" ? "" : pathname}`;
-  url.search = search;
-  return NextResponse.redirect(url);
+  // Build the address from the domain the visitor used. Behind Caddy, request.nextUrl carries
+  // the server's internal address (localhost:3000); Caddy passes the public one in
+  // X-Forwarded-Host/Proto and overwrites any values a visitor sends.
+  const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? request.nextUrl.host;
+  const proto = request.headers.get("x-forwarded-proto") ?? request.nextUrl.protocol.replace(/:$/, "");
+  const path = `/${preferredLocale(request)}${pathname === "/" ? "" : pathname}${search}`;
+  return NextResponse.redirect(new URL(path, `${proto}://${host}`), 307);
 }
 
 function preferredLocale(request: NextRequest): Locale {
