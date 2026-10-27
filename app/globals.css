@@ -173,10 +173,13 @@ button.link-caps { border: 0; cursor: pointer; padding-inline: 0; }
 }
 .nav__link:hover, .nav__link[aria-current="page"] { background-size: 100% 1px; }
 .nav__link .icon { width: 14px; height: 14px; }
-.header.is-compact .header__bar { padding-block: 10px 4px; }
-.header.is-compact .header__logo .lotus { width: 0; opacity: 0; }
-.header.is-compact .header__logo .wordmark { width: 256px; }
-.header.is-compact .nav { padding-bottom: 10px; }
+/* Desktop only: the mobile header is already slim. */
+@media (min-width: 901px) {
+  .header.is-compact .header__bar { padding-block: 10px 4px; }
+  .header.is-compact .header__logo .lotus { width: 0; opacity: 0; }
+  .header.is-compact .header__logo .wordmark { width: 256px; }
+  .header.is-compact .nav { padding-bottom: 10px; }
+}
 
 .mega {
   position: absolute; left: 50%; top: 100%; transform: translateX(-50%); width: min(880px, 92vw);

@@ -28,7 +28,11 @@ export function Header({ lang, t, collections, feature }: HeaderProps) {
   const base = `/${lang}`;
 
   useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 120);
+    // Shrink after 200px, grow back only near the top. The gap must exceed the header's own
+    // change in height (~115px on desktop), or the resize moves the scroll position back across
+    // the threshold and the header flickers between the two sizes.
+    const onScroll = () =>
+      setCompact((was) => (was ? window.scrollY > 24 : window.scrollY > 200));
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
