@@ -19,7 +19,7 @@ sudo systemctl restart miovra
 
 echo "Checking the site responds…"
 for _ in $(seq 1 30); do
-  if curl -fsS -o /dev/null http://127.0.0.1:3000/en; then
+  if curl -fs -o /dev/null http://127.0.0.1:3000/en; then
     echo "Live: $NEW"
     # Keep the three newest builds for quick rollback, delete older ones.
     ls -1dt "$RELEASES"/* | tail -n +4 | xargs -r sudo rm -rf
