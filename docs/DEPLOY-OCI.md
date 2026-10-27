@@ -72,7 +72,7 @@ It prints each step as it goes:
 
 1. Adds a 2 GB swap file and tells Linux to use it only when needed.
 2. Turns off the automatic package-list refresh (`dnf-makecache`), which is known to eat memory on 1 GB servers.
-3. Installs only `tar`, `xz`, `nano`, `curl` (most are already there).
+3. Checks for `tar`, `xz`, `curl` and `nano` and installs only what's missing, loading just the base package list. A full `dnf` run can be killed for lack of memory on 1 GB.
 4. Opens ports 80 and 443 in the server's firewall.
 5. Installs **Node.js 22** (official build, checksum verified).
 6. Installs **Caddy 2.8.4** (official build, checksum verified).
@@ -110,7 +110,7 @@ dig +short www.miovra.eu www.miovra.in
 sudo nano /etc/miovra/miovra.env
 ```
 
-3. Paste the password after `SMTP_PASS=` (no spaces). Save with **Ctrl+O**, **Enter**, then **Ctrl+X**.
+3. Paste the password after `SMTP_PASS=` (no spaces). Save with **Ctrl+O**, **Enter**, then **Ctrl+X**. (If the setup said nano isn't installed, use `sudo vi` instead: press `i` to type, then `Esc` and `:wq` to save.)
 4. Restart the site:
 
 ```bash
@@ -185,3 +185,4 @@ sudo systemctl restart miovra caddy
 | No padlock / certificate errors in `journalctl -u caddy` | DNS not pointing at YOUR_IP yet (Part E). Caddy retries on its own. |
 | Enquiries saved but no email | Wrong app password, or spaces in it. Fix `/etc/miovra/miovra.env`, then `sudo systemctl restart miovra`. |
 | `miovra-update` says the build didn't start | It already rolled back. Send me the log lines it printed. |
+| A step prints `Killed` | Out of memory. Run `bash setup.sh` again (it skips finished steps); if it repeats, disable the Oracle Cloud Agent plugins (Everyday tasks) and retry. |

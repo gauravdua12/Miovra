@@ -31,12 +31,35 @@ if ! sudo swapon --show | grep -q /swapfile; then
 fi
 echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/90-miovra.conf >/dev/null
 sudo sysctl -q -p /etc/sysctl.d/90-miovra.conf
+free -h
 
 step "2/8 Stop background package-index refreshes (they spike memory on small servers)"
 sudo systemctl disable --now dnf-makecache.timer 2>/dev/null || true
+sudo systemctl disable --now dnf-automatic.timer dnf-automatic-install.timer 2>/dev/null || true
 
-step "3/8 Small tools: tar/xz for unpacking, nano for editing settings"
-sudo dnf install -y -q tar xz nano curl policycoreutils
+step "3/8 Small tools (installs only what's missing)"
+# A full `dnf` run loads every Oracle repository's package list and can be killed for lack
+# of memory on a 1 GB server, so only use it when needed, with just the base repository.
+OL_MAJOR=$(. /etc/os-release; echo "${VERSION_ID%%.*}")
+light_dnf() {
+  sudo dnf install -y -q --disablerepo='*' --enablerepo="ol${OL_MAJOR}_baseos_latest" \
+    --setopt=install_weak_deps=False "$@"
+}
+need=()
+command -v tar >/dev/null || need+=(tar)
+command -v xz >/dev/null || need+=(xz)
+command -v curl >/dev/null || need+=(curl)
+command -v restorecon >/dev/null || need+=(policycoreutils)
+if ((${#need[@]})); then
+  echo "Installing: ${need[*]}"
+  light_dnf "${need[@]}"
+else
+  echo "Already installed: tar, xz, curl, restorecon"
+fi
+if ! command -v nano >/dev/null; then
+  light_dnf nano 2>/dev/null || echo "nano couldn't be installed; use vi to edit settings instead."
+fi
+EDITOR_CMD=$(command -v nano >/dev/null && echo nano || echo vi)
 
 step "4/8 Firewall: allow web traffic (ports 80 and 443)"
 sudo firewall-cmd -q --permanent --add-service=http --add-service=https
@@ -94,5 +117,5 @@ echo
 echo "Done. Memory in use:"
 free -h
 echo
-echo "Next: add the Gmail app password with  sudo nano /etc/miovra/miovra.env"
+echo "Next: add the Gmail app password with  sudo $EDITOR_CMD /etc/miovra/miovra.env"
 echo "      then run                         sudo systemctl restart miovra"
