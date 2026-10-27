@@ -1,0 +1,23 @@
+[Unit]
+Description=Miovra website (Next.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=miovra
+Group=miovra
+WorkingDirectory=/opt/miovra/current
+EnvironmentFile=/etc/miovra/miovra.env
+ExecStart=/usr/local/bin/node server.js
+Restart=always
+RestartSec=3
+# Restart the site rather than let it squeeze the rest of a 1 GB server.
+MemoryHigh=300M
+MemoryMax=400M
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

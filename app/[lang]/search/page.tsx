@@ -34,7 +34,7 @@ export default async function SearchPage({ params, searchParams }: { params: Par
           </div>
           {q && (
             <p aria-live="polite">
-              {results.length ? fill(t.search.results, { n: results.length, q }) : fill(t.search.none, { q })}
+              {results.length ? fill(results.length === 1 ? t.search.result : t.search.results, { n: results.length, q }) : fill(t.search.none, { q })}
             </p>
           )}
         </form>

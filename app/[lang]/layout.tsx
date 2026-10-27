@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
@@ -9,7 +8,7 @@ import { PrefsProvider } from "@/components/PrefsProvider";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { collections } from "@/lib/catalog";
 import { getDictionary } from "@/lib/dictionaries";
-import { CURRENCY_COOKIE, defaultCurrency, isCurrency, isLocale, locales } from "@/lib/i18n";
+import { defaultCurrency, isLocale, locales } from "@/lib/i18n";
 import { resolveImage } from "@/lib/images";
 import { site } from "@/lib/site";
 import "../globals.css";
@@ -53,8 +52,9 @@ export default async function RootLayout({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const t = getDictionary(lang);
-  const saved = (await cookies()).get(CURRENCY_COOKIE)?.value;
-  const currency = isCurrency(saved) ? saved : defaultCurrency(lang);
+  // Pages are pre-rendered with the language's default currency; PrefsProvider then applies
+  // the visitor's saved choice in the browser, so the server never renders per visitor.
+  const currency = defaultCurrency(lang);
   const home = collections[0];
 
   return (

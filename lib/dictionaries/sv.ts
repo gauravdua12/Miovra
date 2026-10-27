@@ -242,6 +242,7 @@ export const sv: Dictionary = {
     label: "Sök i kollektionen",
     placeholder: "Sök efter löpare, kuddar, målningar…",
     submit: "Sök",
+    result: "1 resultat för ”{q}”",
     results: "{n} resultat för ”{q}”",
     none: "Inga träffar för ”{q}”. Prova ett bredare ord, eller bläddra i kollektionerna.",
   },

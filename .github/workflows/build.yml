@@ -1,0 +1,52 @@
+# Builds the site on every push to main and publishes it as the "latest" release,
+# which the server downloads with `miovra-update`. Building here (not on the server)
+# is what lets the site run on a 1 GB RAM server.
+name: Build site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Package the standalone server, static files and photos
+        run: |
+          mkdir -p dist/miovra
+          cp -R .next/standalone/. dist/miovra/
+          mkdir -p dist/miovra/public dist/miovra/.next
+          cp -R public/. dist/miovra/public/
+          cp -R .next/static dist/miovra/.next/static
+          tar -czf miovra.tar.gz -C dist miovra
+          ls -lh miovra.tar.gz
+
+      - name: Publish as the "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view latest >/dev/null 2>&1 || \
+            gh release create latest --title "Latest build" --notes "Built automatically from main. The server installs it with miovra-update."
+          gh release upload latest miovra.tar.gz --clobber
+          gh release edit latest --notes "Built automatically from ${GITHUB_SHA::7} on main. The server installs it with miovra-update."

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { CURRENCY_COOKIE, type Currency, type Locale } from "@/lib/i18n";
+import { CURRENCY_COOKIE, isCurrency, type Currency, type Locale } from "@/lib/i18n";
 
 const WISHLIST_KEY = "miovra-saved";
 
@@ -36,6 +36,8 @@ export function PrefsProvider({
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    const cookie = document.cookie.match(new RegExp(`(?:^|; )${CURRENCY_COOKIE}=([A-Z]+)`))?.[1];
+    if (isCurrency(cookie)) setCurrencyState(cookie);
     try {
       const raw = localStorage.getItem(WISHLIST_KEY);
       if (raw) setSaved(JSON.parse(raw));

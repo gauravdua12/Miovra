@@ -43,4 +43,4 @@ Translated by Claude. Needs a native read-through before launch, especially Our 
 
 ## Before going live
 
-- Email notifications: create a Gmail app password and put it in the server's `.env` (see `docs/DEPLOY-OCI.md`, Part G).
+- Email notifications: create a Gmail app password and put it in `/etc/miovra/miovra.env` on the server (see `docs/DEPLOY-OCI.md`, Part F).

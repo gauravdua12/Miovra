@@ -31,9 +31,9 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 | `public/images/` | Photos; missing ones show as labelled placeholders |
 | `docs/blueprint/` | The approved wireframe and copy blueprint |
 | `CONTENT-TODO.md` | Everything still to supply or confirm |
-| `docs/DEPLOY-OCI.md` | Step-by-step guide to putting the site live on Oracle Cloud |
-| `Dockerfile`, `docker-compose.yml`, `Caddyfile` | Production setup: the site plus Caddy for automatic HTTPS |
-| `.env.example` | Server settings (Gmail sending for enquiry emails) |
+| `docs/DEPLOY-OCI.md` | Step-by-step guide to putting the site live on Oracle Cloud (1 GB RAM server) |
+| `.github/workflows/build.yml` | Builds the site on every push to `main` and publishes it as the `latest` release |
+| `deploy/` | Server setup script, update script, Caddy config, services and settings template |
 
 ## Phases
 
@@ -41,4 +41,4 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 2. Design system and pages, running locally (done)
 3. Content: photos, catalogue, handles, Swedish review
 4. QA: mobile, accessibility, speed, GDPR
-5. Deploy to OCI after final approval: follow `docs/DEPLOY-OCI.md`
+5. Deploy to OCI: follow `docs/DEPLOY-OCI.md`; afterwards `miovra-update` on the server publishes each new build

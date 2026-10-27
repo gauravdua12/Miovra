@@ -240,6 +240,7 @@ export const en = {
     label: "Search the collection",
     placeholder: "Search for runners, cushions, paintings…",
     submit: "Search",
+    result: "1 result for “{q}”",
     results: "{n} results for “{q}”",
     none: "Nothing found for “{q}”. Try a broader word, or browse the collections.",
   },
