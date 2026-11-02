@@ -124,6 +124,11 @@ export const sv: Dictionary = {
     showing: "Visar {shown} av {total}",
     loadMore: "Visa fler",
     empty: "Inget matchar dessa filter. Rensa ett filter eller bläddra i hela kollektionen.",
+    soon: {
+      heading: "Bra saker tar tid.",
+      body: "Våra kollektioner håller fortfarande på att skapas och kommer snart hit. Behöver du något tidigare?",
+      email: "Mejla oss på",
+    },
     custom: {
       eyebrow: "På beställning",
       heading: "Hittar du inte riktigt det du söker?",

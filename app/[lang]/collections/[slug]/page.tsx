@@ -40,6 +40,7 @@ export default async function CollectionPage({
   const ct = t.collections;
   const story = collection.craftStory;
   const storyImage = resolveImage(story.image);
+  const cards = listedProducts(collection.slug).map((p) => toCard(p, lang));
 
   return (
     <>
@@ -61,13 +62,24 @@ export default async function CollectionPage({
           <li aria-current="page">{collection.name[lang]}</li>
         </ol>
         <p className="lede" style={{ margin: "24px 0 28px" }}>{collection.description[lang]}</p>
-        <CollectionBrowser
-          cards={listedProducts(collection.slug).map((p) => toCard(p, lang))}
-          categories={collection.categories.map((c) => ({ slug: c.slug, name: c.name[lang] }))}
-          initialCategory={category}
-          t={ct}
-          cardText={cardText(t)}
-        />
+        {cards.length ? (
+          <CollectionBrowser
+            cards={cards}
+            categories={collection.categories.map((c) => ({ slug: c.slug, name: c.name[lang] }))}
+            initialCategory={category}
+            t={ct}
+            cardText={cardText(t)}
+          />
+        ) : (
+          <div className="coming-soon">
+            <i className="lotus" aria-hidden="true" />
+            <h2 className="h2">{ct.soon.heading}</h2>
+            <p>{ct.soon.body}</p>
+            <p>
+              {ct.soon.email} <a href={`mailto:${site.email}`}>{site.email.toLowerCase()}</a>
+            </p>
+          </div>
+        )}
       </section>
 
       {/* C4 · Custom order prompt */}

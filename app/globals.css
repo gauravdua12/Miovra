@@ -436,6 +436,9 @@ button.link-caps { border: 0; cursor: pointer; padding-inline: 0; }
 .more__bar { width: 220px; height: 1px; background: var(--hair); position: relative; }
 .more__bar span { position: absolute; inset: 0 auto 0 0; background: var(--dark); }
 .empty { border: 1px dashed var(--line); padding: 48px 24px; text-align: center; display: grid; gap: 16px; justify-items: center; }
+.coming-soon { border-block: 1px solid var(--line); padding: 64px 24px; margin-bottom: 8px; text-align: center; display: grid; gap: 14px; justify-items: center; }
+.coming-soon p { max-width: 46ch; margin: 0; }
+.coming-soon a { text-decoration: underline; text-underline-offset: 3px; }
 
 .prompt { border: 1px solid var(--line); padding: 64px 24px; display: grid; gap: 16px; justify-items: center; text-align: center; }
 

@@ -26,7 +26,7 @@ Open http://localhost:3000. It redirects to `/en` or `/sv` based on the browser 
 | `app/globals.css` | Design system: the two brand tones, type scale, components |
 | `components/` | Header, footer, product cards, filters, gallery, forms |
 | `lib/dictionaries/` | All site copy, English and Swedish |
-| `lib/catalog.ts` | Collections and pieces (sample data for now) |
+| `lib/catalog.ts` | Collections and pieces (no pieces listed yet) |
 | `lib/site.ts` | Email, social links, WhatsApp number, Instagram reels |
 | `public/images/` | Photos; missing ones show as labelled placeholders |
 | `docs/blueprint/` | The approved wireframe and copy blueprint |

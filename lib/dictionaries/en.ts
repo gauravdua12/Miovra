@@ -122,6 +122,11 @@ export const en = {
     showing: "Showing {shown} of {total}",
     loadMore: "Load More",
     empty: "Nothing matches these filters. Clear a filter or browse the whole collection.",
+    soon: {
+      heading: "Good things take time.",
+      body: "Our collections are still in the making and will be here soon. Need something sooner?",
+      email: "Email us at",
+    },
     custom: {
       eyebrow: "Made to Order",
       heading: "Can't find quite what you're looking for?",

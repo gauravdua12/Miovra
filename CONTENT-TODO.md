@@ -8,11 +8,11 @@ Any of `.jpg`, `.png`, `.webp` works; the site picks the file up by name with no
 
 | File name | Where it shows | Status |
 |---|---|---|
-| `banner-home` | Homepage banner; also the Teal Paisley cushion sample | Done |
-| `collection-home-decor` | Home Decor tile, banner and menu; Jaal runner sample | Done |
-| `collection-folk-art` | Folk Art & Paintings tile and banner; peacock painting sample | Done |
-| `collection-bags` | Bags & Accessories tile and banner; tote sample | Done |
-| `collection-diy-kits` | DIY Kits tile and banner; tote kit sample | Done |
+| `banner-home` | Homepage banner | Done |
+| `collection-home-decor` | Home Decor tile, banner and menu | Done |
+| `collection-folk-art` | Folk Art & Paintings tile and banner | Done |
+| `collection-bags` | Bags & Accessories tile and banner | Done |
+| `collection-diy-kits` | DIY Kits tile and banner | Done |
 | `gifts-custom` | Gifts & Custom Orders band | Done |
 | `workshops` | Workshops band and page; block-printing craft story; "How It Was Made" on block-print pieces | Done |
 | `arti-portrait` | Our Story teaser and page (layout adapts without it) | Optional |
@@ -26,7 +26,7 @@ Any of `.jpg`, `.png`, `.webp` works; the site picks the file up by name with no
 
 ## Catalogue (`lib/catalog.ts`)
 
-All 15 products are **sample data**: names, codes, sizes, EUR and SEK prices, regions and descriptions. Only the 5 that have photos are shown (Jaal runner, Teal Paisley cushion, peacock painting, Jaal tote, tote paint kit). Replace with the real pieces.
+No pieces are listed yet. Each collection page shows "Good things take time… Email us at miovra4u@gmail.com" until it has at least one piece. Add the real pieces to the `products` list (there is an example in the file), with their photos in `public/images/products/`.
 
 ## Policies to confirm (`lib/dictionaries/en.ts` and `sv.ts`, `legal` section)
 
